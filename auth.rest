@@ -1,0 +1,20 @@
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "email": "test@gmail.com",
+    "password": "password123"
+}
+
+### Login Request
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "password123"
+}
+
+### Get Feed
+GET http://localhost:5000/api/posts
