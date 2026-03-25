@@ -42,10 +42,12 @@ console.log('Attempting to connect to MongoDB...');
 mongoose.connect(MONGO_URI)
     .then(() => {
         console.log('MongoDB connected successfully');
-        app.listen(PORT, '0.0.0.0', () => {
-            console.log(`Server running on port ${PORT}`);
-        });
     })
     .catch(err => {
         console.error('Database connection error:', err);
     });
+
+// Always listen to port regardless of DB status (for Render health check)
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+});
