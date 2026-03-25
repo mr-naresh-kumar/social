@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config();
 
 const app = express();
 
@@ -31,16 +31,20 @@ app.use('/api/posts', require('./routes/posts'));
 
 // MongoDB Connection
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/social_app';
+const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+    console.error('FATAL ERROR: MONGO_URI is not defined in environment variables.');
+    process.exit(1);
+}
+
+console.log('Attempting to connect to MongoDB...');
 mongoose.connect(MONGO_URI)
     .then(() => {
         console.log('MongoDB connected successfully');
-        if (process.env.NODE_ENV !== 'test') {
-            app.listen(PORT, () => {
-                console.log(`Server running on port ${PORT}`);
-            });
-        }
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`Server running on port ${PORT}`);
+        });
     })
     .catch(err => {
         console.error('Database connection error:', err);
