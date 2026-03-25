@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://127.0.0.1:5000',
-      '/uploads': 'http://127.0.0.1:5000'
+      '/api': 'https://social-j8p7.onrender.com',
+      '/uploads': 'https://social-j8p7.onrender.com'
     }
   }
 })
